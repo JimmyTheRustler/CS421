@@ -1,0 +1,18 @@
+program()
+{
+    double X;
+    double Y;
+    double Z;
+    double W;
+    double Pi;
+     X = 25;
+     Y = 13;
+    X = Y;
+    W = 4;
+    W = 4*(X+Y);
+    Y = 5;
+    W = X + 4 * (Y-W);
+    Y = (W+5)*(X-3);
+    X = (Y = W = X+Y)+2;
+}
+

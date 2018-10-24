@@ -1,0 +1,20 @@
+package megaBasic;
+
+import java.io.FileNotFoundException;
+
+public class MegaBasic {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		System.out.println("Parsing Beginning");
+		SrcReader src = new SrcReader("test.txt");
+		Lexan lex = new Lexan(src);
+		Parser parser = new Parser(lex);
+		char ch;
+		Token sy;
+
+		
+		parser.program();
+		System.out.println("Parsing Complete");
+	}
+
+}

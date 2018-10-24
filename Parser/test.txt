@@ -1,0 +1,18 @@
+program()
+{
+    int W;
+    int X;
+    int Y;
+    int Z;
+    int N;
+    int P;
+    W = X = Y = (Z = 25)-5;
+    N = 5+3+2;
+    while (N>0) {
+        N = N -1;
+        P = P*2;
+    };
+    W = X + 4 * (Y-W);
+    Y = ((W+5)*(X-3)) * (P-N*2);
+}
+

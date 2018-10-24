@@ -1,0 +1,35 @@
+program()
+{
+    double X;
+    double Y;
+    double Z;
+    double W;
+    double Pi;
+    print "Hello";
+    X = 25;
+    while (X>0) {
+	X = X - 1;
+	print "X= ",X;
+    };
+    Y = 13;
+    X = Y;
+    W = 4;
+  label loop;
+    X = X + 4;
+    X = X - 10;
+    X = 4 * X;
+       {
+                print "Erik";
+		print "Omar";
+		print "Matt";
+	};
+    print "Goodbye Cruel World and Cruella DeVille","croak!";
+    Y = (34+2)/2 - 14;
+ Z = X + Y;
+ W = W - 1;
+ print "W = ",W;
+ if (W!=0) W = 42;
+ Pi = 3.14159;
+ print "Z = ",  Z;
+}
+

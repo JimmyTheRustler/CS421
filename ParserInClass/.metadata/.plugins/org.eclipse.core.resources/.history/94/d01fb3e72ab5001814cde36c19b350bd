@@ -1,0 +1,5 @@
+
+public enum Token { nullToken, 
+	Ident, Integer, Real, Plus, Minus, Mult, Divd, Equal, 
+	Lparen, Rparen, eol, eof, Lss, Gtr, not, leq
+}

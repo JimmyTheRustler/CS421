@@ -1,0 +1,11 @@
+print "Beginning of the program world"
+print 22+3*10
+print 23
+X = 34+6
+print X
+Y = X-34
+Y = 0
+print Y
+if (Y) print "Hello World"
+
+print "End of program"

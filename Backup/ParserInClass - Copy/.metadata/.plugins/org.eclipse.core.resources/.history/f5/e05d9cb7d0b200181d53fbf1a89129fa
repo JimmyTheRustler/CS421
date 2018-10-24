@@ -1,0 +1,31 @@
+
+public class Lexan {
+	SrcReader src;
+	char ch = ' ';
+	Token iniToken = new Token[128];
+	public Lexan(SrcReader src) {
+		this.src = src;
+		initialize();
+	}
+	
+	public Token next() {
+		Token sy = Token.nullToken;
+		while(ch == ' ') ch = src.nextch();
+		switch(ch) {
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			sy = Token.Number;
+			break;
+		}
+		ch = src.nextch();
+		return sy;
+	}
+}

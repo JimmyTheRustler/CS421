@@ -1,0 +1,44 @@
+
+public class Lexan {
+	SrcReader src;
+	char ch = ' ';
+	Token[] iniToken = new Token[128];
+	public Lexan(SrcReader src) {
+		this.src = src;
+		initialize();
+	}
+	
+	public void initialize() {
+		int i;
+		for(i = 0; i < iniToken.length; i++) {
+			iniToken[i] = Token.nullToken;
+		}
+		for(i = 0; i < '9'; i++)
+			iniToken[i] = Token.Number;
+		for(i = 'A'; i < 'Z'; i++)
+			iniToken[i] = Token.Ident;
+		for(i = 'a'; i < 'z'; i++)
+			iniToken[i] = Token.Ident;
+		
+	}
+	public Token next() {
+		Token sy = Token.nullToken;
+		while(ch == ' ') ch = src.nextch();
+		switch(ch) {
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			sy = Token.Number;
+			break;
+		}
+		ch = src.nextch();
+		return sy;
+	}
+}

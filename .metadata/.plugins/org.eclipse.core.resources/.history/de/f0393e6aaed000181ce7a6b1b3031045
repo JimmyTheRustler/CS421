@@ -1,0 +1,233 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = true;}PARSER_BEGIN(Calculator)
+public class Calculator{  public static void main(String args []) throws ParseException  {    Calculator parser = new Calculator(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (Calculator.block()) //change back to .one_line()        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          return; //changed from break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        Calculator.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(Calculator)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+TOKEN : /* OPERATORS */
+{
+  < PLUS : "+" >
+| < MINUS : "-" >
+| < MULTIPLY : "*" >
+| < DIVIDE : "/" >
+| < STOP : "stop" >
+| < PRINT : "print" >
+| < IF : "if" >
+| < ELSE : "else" >
+
+}
+
+TOKEN :
+{
+  < CONSTANT : (< DIGIT >)+ ("." (< DIGIT >)* )?>
+| < #DIGIT : [ "0"-"9" ] >
+| < IDENT : <  LETTER >( <  LETTER > | < DIGIT >)*>
+| < #LETTER : ["A"-"Z", "a"-"z"] >
+}
+
+
+
+int block() : //replaces one line production rule
+{ }
+{
+
+  (
+    "{"
+    ( statement() )? ( ";" (statement())? )*
+    "}"
+    { return 0; }
+  )
+| ("." { return 1; })
+}
+
+
+
+
+Stmt statement() :
+{
+  Stmt statement;
+}
+{
+  statement = PrintStmt() | statement = Assignment() | statement = block() | statement = If()
+  {
+    return statement;
+  }
+}
+
+void If() :
+{
+}
+{
+	< IF > "(" expression() ")" statement()
+	(	  < ELSE > statement()
+	)?
+}
+
+
+void PrintStmt():
+{}//where you put initilzation java code
+//where production rule goes
+{
+	"Print"
+}
+
+
+
+
+
+
+void assignment() :
+{	//init code for parser
+	ExpNode asnmnt = new ExpNode();
+	ExpNode lvalue, rvalue;
+}
+	//Assignment statement = new Assignment();
+	//statement.expTree = asnmnt;
+{
+	lvalue=varref() "=" rvalue=expression()
+	{
+		asnmnt.operation = '=';
+		asnmnt.left = lvalue;
+		asnmnt.right = rvalue;
+		asnmnt.traverse();
+	}
+		
+}
+
+
+
+
+
+ExpNode expression() :
+{ ExpNode root, lchild, rchild:
+	Token operator;
+}
+{
+	root = term()
+	(	  (	    operator < PLUS >
+	  | operator < MINUS >
+		
+	  )
+		rchild=term()
+		{
+			
+		}
+	)*
+	{return root;}
+}
+
+
+
+
+//ExpNode term() :
+
+ExpNode element() :
+{
+  ExpNode factor;
+  	Token constant; }
+{
+
+  (
+    (      constant =< CONSTANT >
+      { factor = new ExpNode();
+      	factor.operation = 'c'
+      	
+
+
+
+//ExpNode varref() :
+
+
+
+int one_line() :
+{double answer;}
+{
+  answer = sum() ";"
+  {
+    System.out.println("The answer is: "+answer);
+    return 0;
+  }
+| ";"
+  {
+    return 1;
+  }
+| < STOP >
+  {
+    System.out.println("Later nerd!");
+  	System.exit(1);
+  	}
+}
+
+double sum() :
+{ double value,operand;}
+{
+  value=term()
+  (
+      (< PLUS > { value += term(); } | < MINUS > { value -= term(); } )
+  	   
+      
+  )*
+  { return value; }
+}
+
+double term() :
+{ double value, operand;
+  Token operator;
+}
+{
+  value = unary()
+  (
+    (
+      operator = < MULTIPLY >
+    | operator = < DIVIDE >
+    )
+    operand = unary()
+    {
+      if(operator.kind == CalculatorConstants.MULTIPLY)
+      	value *= operand;
+      else
+		value /= operand;
+      	 }
+  )*
+  {
+    return value;
+  }
+}
+
+double unary() :
+{
+  double n;
+  System.out.println("Unary");}
+{
+  (
+  	n=element()
+  |
+    < MINUS > n=unary() { n = -n; }
+)
+ {
+	System.out.println("Unary got back: "+n);
+	return n;
+ }
+}
+
+double element() :
+{
+  Token t=null;
+  System.out.println("Element");}
+{
+  (
+      t =< CONSTANT >
+      | { System.out.println("(");} "(" sum() ")" { System.out.println(")");}
+      | { System.out.println("[");}"[" sum() "]" { System.out.println("]");}
+  )
+{ System.out.println("<"+t.image+">");
+  return Double.parseDouble(t.image); }
+}
+

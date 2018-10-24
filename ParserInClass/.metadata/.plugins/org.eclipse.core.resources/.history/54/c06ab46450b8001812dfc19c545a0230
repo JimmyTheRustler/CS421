@@ -1,0 +1,39 @@
+
+public class parser {
+
+	Token tok;
+	Lexan lex;
+	
+	public parser(Lexan lex) {
+		this.lex = lex;
+	}
+	
+	public void trump() {
+		expect(Token.Trump);
+		expect(Token.lbrack);
+		while(tok == Token.Tweet || tok == Token.Integer || tok == Token.Ident || 
+				tok == Token.Lparen || tok == Token.Question || tok == Token.eol) {
+			statement();
+			
+		}
+		expect(Token.rbrack);
+		expect(Token.Impeached);
+		
+	}
+	
+	public void statement() {
+		switch(tok) {
+		case Tweet:
+			tweetStat();
+			break;
+		case Integer:
+		case Lparen:
+		case Ident:
+			expression();
+			break;
+		case Question:
+		case eol;
+			tok = lex.next();
+		}
+	}
+}

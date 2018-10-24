@@ -1,0 +1,12 @@
+int x
+int y
+x = 15
+y = 23
+x = x + y
+print x; y
+print 42
+print 34 ; 45; 62
+print 55+77
+print 4-2; 5-2; 6+2-4
+print (100+3)*4*5/(6+1)
+stop

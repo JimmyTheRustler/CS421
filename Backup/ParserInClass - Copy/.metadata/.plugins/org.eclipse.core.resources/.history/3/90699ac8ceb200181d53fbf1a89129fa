@@ -1,0 +1,14 @@
+
+public class Lexan {
+	SrcReader src;
+	
+	public Lexan(SrcReader src) {
+		this.src = src;
+	}
+	
+	public Token next() {
+		Token sy = Token.eof;
+		
+		return sy;
+	}
+}

@@ -1,0 +1,5 @@
+print 23
+X = 34+6
+print "Howdy Partner!"
+Y = 10
+if (Y) print "You made it!"
